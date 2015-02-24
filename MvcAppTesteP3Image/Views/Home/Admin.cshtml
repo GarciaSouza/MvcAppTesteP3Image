@@ -1,3 +1,35 @@
-﻿<div>
+﻿<div class="action-container">
     <h2>Administration</h2>
+    <h3>Categorias</h3>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>#</th>
+            <th>Descrição</th>
+            <th>Slug</th>
+            <th>Categoria Pai</th>
+            <th>Nº Campos</th>
+        </tr>
+    </table>
 </div>
+
+@section scripts {
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: 'api/Categorias',
+            type: 'GET',
+            success: function (result) {
+                result.forEach(function (categoria) {
+                    var tr = "<tr style='cursor:pointer'><td>" + categoria.Id + "</td><td>" + categoria.Descricao  + "</td><td>" + categoria.Slug + "</td><td>" + (categoria.CategoriaPai == null ? "" : categoria.CategoriaPai.Descricao) + "</td><td>" + categoria.Campos.length + "</td></tr>";
+                    $('table.table').append(tr);
+
+                    $('table.table tr:last-child').click(function () {
+                        alert(categoria.Slug);
+                    });
+                });
+            }
+        });
+    });
+</script>
+}
