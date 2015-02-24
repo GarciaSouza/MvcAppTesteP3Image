@@ -16,23 +16,25 @@ namespace MvcAppTesteP3Image.Models
         [DataMember]
         public int Id { get; set; }
 
+        [Required]
         [DataMember]
         public uint Ordem { get; set; }
 
+        [Required]
         [DataMember]
         public String Descricao { get; set; }
 
+        [Required]
         [DataMember]
         public String Tipo { get; set; }
 
         [DataMember]
         public String[] Lista { get; set; }
 
-        [DataMember]
+        [Required]
         public int? CategoriaId { get; set; }
 
         [ForeignKey("CategoriaId")]
-        [DataMember]
         public virtual Categoria Categoria { get; set; }
     }
 }

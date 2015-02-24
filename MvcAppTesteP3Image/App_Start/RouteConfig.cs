@@ -15,8 +15,20 @@ namespace MvcAppTesteP3Image
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "Home",
+                defaults: new { controller = "Home", action = "Index" }
+            );
+
+            routes.MapRoute(
+                name: "Admin",
+                url: "Admin",
+                defaults: new { controller = "Home", action = "Admin" }
+            );
+
+            routes.MapRoute(
+                name: "Slug",
+                url: "{catslug}/{subcatslug}",
+                defaults: new { controller = "Home", action = "Form", catslug = "", subcatslug = "" }
             );
         }
     }

@@ -31,6 +31,7 @@ namespace MvcAppTesteP3Image.Models
         [DataMember]
         public virtual Categoria CategoriaPai { get; set; }
 
+        [DataMember]
         public virtual ICollection<Campo> Campos { get; set; }
     }
 }

@@ -13,6 +13,11 @@ namespace MvcAppTesteP3Image.Models
         {
         }
 
+        public P3ImageContext(String connectionString)
+            : base(connectionString)
+        {
+        }
+
         public virtual DbSet<Categoria> Categorias { get; set; }
 
         public virtual DbSet<Campo> Campos { get; set; }

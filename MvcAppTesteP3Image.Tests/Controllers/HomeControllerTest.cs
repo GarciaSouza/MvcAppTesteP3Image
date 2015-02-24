@@ -21,5 +21,19 @@ namespace MvcAppTesteP3Image.Tests.Controllers
             Assert.IsNotNull(result);
             Assert.AreEqual("Home Page", result.ViewBag.Title);
         }
+
+        [TestMethod]
+        public void Admin()
+        {
+            // Arrange
+            HomeController controller = new HomeController();
+
+            // Act
+            ViewResult result = controller.Admin() as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Admin", result.ViewBag.Title);
+        }
     }
 }

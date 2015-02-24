@@ -14,5 +14,19 @@ namespace MvcAppTesteP3Image.Controllers
 
             return View();
         }
+
+        public ActionResult Form(String catslug, String subcatslug)
+        {
+            ViewBag.catslug = catslug;
+            ViewBag.subcatslug = subcatslug;
+            return View();
+        }
+
+        public ActionResult Admin()
+        {
+            ViewBag.Title = "Admin";
+
+            return View();
+        }
     }
 }
