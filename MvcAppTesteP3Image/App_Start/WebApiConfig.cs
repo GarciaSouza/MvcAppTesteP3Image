@@ -19,6 +19,12 @@ namespace MvcAppTesteP3Image
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "SlugApi",
+                routeTemplate: "api/{controller}/{catslug}/{subcatslug}",
+                defaults: new { catslug = "", subcatslug = "" }
+            );
         }
     }
 }

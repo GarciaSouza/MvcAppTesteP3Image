@@ -2,7 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvcAppTesteP3Image.Controllers;
 using MvcAppTesteP3Image.Models;
-using System.Collections.Generic;using System.Linq;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Results;
 
@@ -71,6 +72,17 @@ namespace MvcAppTesteP3Image.Tests.Controllers
 
             Assert.IsNotNull(result);
             Assert.AreEqual("desktop", result.Content.Slug);
+        }
+
+        [TestMethod]
+        public void GetBySlug()
+        {
+            CategoriasController controller = new CategoriasController(container);
+
+            System.Web.Http.Results.OkNegotiatedContentResult<Categoria> result = (System.Web.Http.Results.OkNegotiatedContentResult<Categoria>)controller.GetCategoria("computador", "laptop");
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("laptop", result.Content.Slug);
         }
 
         [TestMethod]

@@ -24,9 +24,9 @@ namespace MvcAppTesteP3Image.Migrations
 
             context.Categorias.Add(subCat1);
             context.SaveChanges();
-            
-            Campo campo1 = new Campo() { Descricao = "Modelo", Ordem = 1, Tipo = "text", Categoria = subCat1};
-            Campo campo2 = new Campo() { Descricao = "Marca/Fab.", Ordem = 2, Tipo = "text", Categoria = subCat1 };
+
+            Campo campo1 = new Campo() { Descricao = "Marca/Fab.", Ordem = 1, Tipo = "select", Categoria = subCat1, Lista = new string[] { "Fiat", "VW", "Ford", "BMW" } };
+            Campo campo2 = new Campo() { Descricao = "Modelo", Ordem = 2, Tipo = "text", Categoria = subCat1 };
             Campo campo3 = new Campo() { Descricao = "Ano Fab.", Ordem = 3, Tipo = "text", Categoria = subCat1 };
             Campo campo4 = new Campo() { Descricao = "Ano Mod.", Ordem = 4, Tipo = "text", Categoria = subCat1 };
             Campo campo5 = new Campo() { Descricao = "KM", Ordem = 5, Tipo = "text", Categoria = subCat1 };

@@ -1,4 +1,45 @@
-﻿<div>
-    <p>Category Slug: @ViewBag.catslug</p>
-    <p>Sub-Category Slug: @ViewBag.subcatslug</p>
-</div>
+﻿<form>
+    <h3></h3>
+</form>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function changeFormH3Text(text) {
+                $("form h3:first-child").html(text);
+            }
+
+            var catslug = "@ViewBag.catslug",
+                subcatslug = "@ViewBag.subcatslug";
+
+            if (catslug == null || catslug.length <= 0
+                || subcatslug == null || subcatslug.length <= 0)
+            {
+                changeFormH3Text("Categoria não encontrada");
+                return;
+            }
+
+            $.ajax({
+                url: '/api/Categorias/' + catslug + '/' + subcatslug,
+                type: 'GET',
+                success: function (result) {
+                    changeFormH3Text('Home > ' + result.CategoriaPai.Descricao + ' > ' + result.Descricao);
+
+                    result.Campos = result.Campos.sort(compareCategorias);
+
+                    var form = $("form").first();
+                    result.Campos.forEach(function (a, i) {
+                        form.append(getFormGroupByCampo(a));
+                    });
+
+                    form.append("<button class=\"btn btn-default\" onclick=\"alert('O registro foi salvo com sucesso!')\">Salvar!</button>");
+                },
+                error: function (xhr, ajaxOptions, thrownErro) {
+                    if (xhr.status == 404) {
+                        changeFormH3Text("Categoria não encontrada");
+                    }
+                }
+            })
+        });
+    </script>
+}

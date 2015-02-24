@@ -52,6 +52,19 @@ namespace MvcAppTesteP3Image.Controllers
             return Ok(categoria);
         }
 
+        // GET: api/Categoria/catslug/subcatslug
+        [ResponseType(typeof(Categoria))]
+        public IHttpActionResult GetCategoria(String catslug, String subcatslug)
+        {
+            Categoria categoria = db.GetCategorias().Where(cat => cat.Slug == subcatslug && cat.CategoriaPai != null && cat.CategoriaPai.Slug == catslug).FirstOrDefault();
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(categoria);
+        }
+
         // PUT: api/Categorias/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCategoria(int id, Categoria categoria)

@@ -18,7 +18,7 @@ namespace MvcAppTesteP3Image.Models
 
         [Required]
         [DataMember]
-        public uint Ordem { get; set; }
+        public int Ordem { get; set; }
 
         [Required]
         [DataMember]
@@ -29,7 +29,23 @@ namespace MvcAppTesteP3Image.Models
         public String Tipo { get; set; }
 
         [DataMember]
-        public String[] Lista { get; set; }
+        public String[] Lista
+        {
+            get
+            {
+                if (_Lista != null)
+                    return _Lista.Split(';');
+
+                return null;
+            }
+            set { _Lista = String.Join(";", value); }
+        }
+
+        public String _Lista
+        {
+            get;
+            set;
+        }
 
         [Required]
         public int? CategoriaId { get; set; }

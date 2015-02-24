@@ -128,7 +128,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -139,6 +138,14 @@
     <Compile Include="Migrations\201502232306430_AddCampoRequires.cs" />
     <Compile Include="Migrations\201502232306430_AddCampoRequires.Designer.cs">
       <DependentUpon>201502232306430_AddCampoRequires.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502241809072_AddOrdemOnCampo.cs" />
+    <Compile Include="Migrations\201502241809072_AddOrdemOnCampo.Designer.cs">
+      <DependentUpon>201502241809072_AddOrdemOnCampo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502241856025_AddListaOnCampo.cs" />
+    <Compile Include="Migrations\201502241856025_AddListaOnCampo.Designer.cs">
+      <DependentUpon>201502241856025_AddListaOnCampo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Campo.cs" />
@@ -158,6 +165,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -192,6 +200,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502232306430_AddCampoRequires.resx">
       <DependentUpon>201502232306430_AddCampoRequires.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502241809072_AddOrdemOnCampo.resx">
+      <DependentUpon>201502241809072_AddOrdemOnCampo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502241856025_AddListaOnCampo.resx">
+      <DependentUpon>201502241856025_AddListaOnCampo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
