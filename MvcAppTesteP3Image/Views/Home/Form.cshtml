@@ -2,65 +2,78 @@
     <h2></h2>
     <form></form>
 </div>
-
 @section scripts {
-    <script>
-        $(document).ready(function () {
-            function compareCategorias(a, b) {
-                if (a.Ordem < b.Ordem)
-                    return -1;
-                else if (a.Ordem > b.Ordem)
-                    return 1;
-                else
-                    return 0;
-            }
+<script>
+    $(document).ready(function () {
+        function compareCategorias(a, b) {
+            if (a.Ordem < b.Ordem)
+                return -1;
+            else if (a.Ordem > b.Ordem)
+                return 1;
+            else
+                return 0;
+        }
 
-            function getFormGroupByCampo(campo) {
-                switch (campo.Tipo) {
-                    case 'select':
-                        var div = "<div class='form-group'><label for='form_campo_" + campo.Id + "'>" + campo.Descricao + "</label><select class='form-control' id='form_campo_" + campo.Id + "'>";
-                        campo.Lista.forEach(function (l, i) {
-                            div += "<option>" + l + "</option>";
-                        });
-                        div += "</select></div>";
-                        return div;
-                    case 'text':
-                    default:
-                        return "<div class='form-group'><label for='form_campo_" + campo.Id + "'>" + campo.Descricao + "</label><input type='text' class='form-control' id='form_campo_" + campo.Id + "' /></div>";
-                }
-            }
-
-            var catslug = "@ViewBag.catslug",
-                subcatslug = "@ViewBag.subcatslug";
-
-            if (catslug == null || catslug.length <= 0
-                || subcatslug == null || subcatslug.length <= 0)
-            {
-                showWarning("Categoria não encontrada");
-                return;
-            }
-
-            $.ajax({
-                url: '/api/Categorias/' + catslug + '/' + subcatslug,
-                type: 'GET',
-                success: function (result) {
-                    changeTitle(result.CategoriaPai.Descricao + ' > ' + result.Descricao);
-
-                    result.Campos = result.Campos.sort(compareCategorias);
-
-                    var form = $("form").first();
-                    result.Campos.forEach(function (a, i) {
-                        form.append(getFormGroupByCampo(a));
+        function getFormGroupByCampo(campo) {
+            switch (campo.Tipo) {
+                case 'select':
+                    var div = "<div><div><span>" + campo.Descricao + "</span></div><div><select class='form-control' id='form_campo_" + campo.Id + "'>";
+                    campo.Lista.forEach(function (l, i) {
+                        div += "<option>" + l + "</option>";
                     });
+                    div += "</select></div></div>";
+                    return div;
+                case 'text':
+                default:
+                    return "<div><div><span>" + campo.Descricao + "</span></div><div><input type='text' class='form-control' id='form_campo_" + campo.Id + "' /></div></div>";
+            }
+        }
 
-                    form.append("<button class=\"btn btn-default\" onclick=\"alert('O registro foi salvo com sucesso!')\">Salvar!</button>");
-                },
-                error: function (xhr, ajaxOptions, thrownErro) {
-                    if (xhr.status == 404) {
-                        showWarning("Categoria não encontrada");
-                    }
+        var catslug = "@ViewBag.catslug",
+            subcatslug = "@ViewBag.subcatslug";
+
+        if (catslug == null || catslug.length <= 0
+            || subcatslug == null || subcatslug.length <= 0)
+        {
+            showWarning("Categoria não encontrada");
+            return;
+        }
+
+        $.ajax({
+            url: '/api/Categorias/' + catslug + '/' + subcatslug,
+            type: 'GET',
+            success: function (result) {
+                changeTitle("");
+
+                result.Campos = result.Campos.sort(compareCategorias);
+
+                var divForm = "<div class=\"form\" stlye=\"display:none\">";
+
+                result.Campos.forEach(function (a, i) {
+                    divForm += getFormGroupByCampo(a);
+                });
+
+                divForm += "<div><div><button class=\"btn btn-default\" onclick=\"alert('O registro foi salvo com sucesso!');location.reload();\">Salvar!</button></div></div>";
+
+                $('div.action-container').append(divForm);
+
+                $('div.form').dialog({
+                    draggable: false,
+                    closeOnEscape: false,
+                    modal: true,
+                    resizable: false,
+                    title: result.CategoriaPai.Descricao + ' > ' + result.Descricao,
+                    width: 500,
+                    show: { effect: 'fade', duration: 150 },
+                    dialogClass: 'no-close'
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownErro) {
+                if (xhr.status == 404) {
+                    showWarning("Categoria não encontrada");
                 }
-            })
-        });
-    </script>
+            }
+        })
+    });
+</script>
 }

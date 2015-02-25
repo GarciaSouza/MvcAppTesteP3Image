@@ -1,8 +1,8 @@
 ﻿<div class="action-container">
-    <h2>Administration</h2>
+    <h2>Administração</h2>
     <h3>Categorias</h3>
 
-    <table class="table table-bordered">
+    <table>
         <tr>
             <th>#</th>
             <th>Descrição</th>
@@ -11,21 +11,68 @@
             <th>Nº Campos</th>
         </tr>
     </table>
+
+    <div class="form" style="display:none">
+        <div>
+            <div><span>Descrição</span></div>
+            <div><input type="text" id="form_Descricao"/></div>
+        </div>
+        <div>
+            <div><span>Slug</span></div>
+            <div><input type="text" id="form_Slug"/></div>
+        </div>
+        <div>
+            <div><span>Categoria Pai</span></div>
+            <div>
+                <select id="form_CategoriaPaiId"></select>
+            </div>
+        </div>
+        <div>
+            <div><span>Campos</span></div>
+            <div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section scripts {
 <script>
     $(document).ready(function () {
+        var categorias;
+
         $.ajax({
             url: 'api/Categorias',
             type: 'GET',
             success: function (result) {
-                result.forEach(function (categoria) {
+                categorias = result;
+                categorias.forEach(function (categoria) {
                     var tr = "<tr style='cursor:pointer'><td>" + categoria.Id + "</td><td>" + categoria.Descricao  + "</td><td>" + categoria.Slug + "</td><td>" + (categoria.CategoriaPai == null ? "" : categoria.CategoriaPai.Descricao) + "</td><td>" + categoria.Campos.length + "</td></tr>";
-                    $('table.table').append(tr);
+                    $('table').append(tr);
 
-                    $('table.table tr:last-child').click(function () {
-                        alert(categoria.Slug);
+                    $('table tr:last-child').click(function () {
+                        $('div.form').dialog({
+                            draggable: false,
+                            modal: true,
+                            resizable: false,
+                            title: categoria.Descricao,
+                            width: 500,
+                            show: { effect: 'fade', duration: 150 }
+                        });
+
+                        $('#form_CategoriaPaiId option').remove();
+                        $('#form_CategoriaPaiId').append("<option></option>");
+                        categorias.forEach(function (cat) {
+                            if (cat.Id != categoria.Id) {
+                                var option = "<option value=\"" + cat.Id + "\"";
+
+                                if (categoria.CategoriaPai != null && cat.Id == categoria.CategoriaPai.Id) {
+                                    option += " selected=\"selected\"";
+                                }
+
+                                option += ">" + cat.Descricao + "</option>";
+                                $('#form_CategoriaPaiId').append(option);
+                            }
+                        });
                     });
                 });
             }
